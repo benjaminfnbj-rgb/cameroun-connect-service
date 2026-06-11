@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cameroun Connect Service — CCS | Holding Numérique Camerounaise</title>
+<meta name="description" content="Cameroun Connect Service (CCS) — Holding numérique camerounaise. 25 filiales digitales, 10 régions, solutions numériques pour tous les secteurs d'activité du Cameroun. RCCM RC/BJN/2026/A/15.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B2A4A;
+  --navy-mid: #243660;
+  --navy-deep: #0F1A2E;
+  --white: #fff;
+  --green: #27AE60;
+  --green2: #2ECC71;
+  --red: #C0392B;
+  --yellow: #F39C12;
+  --teal: #16A085;
+  --muted: #6B7A99;
+  --border: rgba(255,255,255,0.07);
+  --card: rgba(255,255,255,0.04);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--navy-deep);color:var(--white);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,26,46,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5vw}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo-wrap{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px}
+.logo-text{font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;letter-spacing:-.3px}
+.logo-text em{color:var(--yellow);font-style:normal}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.55);text-decoration:none;font-size:12.5px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-btn{background:var(--green);color:#fff;border:none;padding:8px 20px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12.5px;cursor:pointer;text-decoration:none;transition:all .2s}
+.nav-btn:hover{background:var(--green2);transform:translateY(-1px)}
+@media(max-width:800px){.nav-links,.nav-btn{display:none}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5vw 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 60% 40%,rgba(27,42,74,.8) 0%,var(--navy-deep) 70%)}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+.tag{display:inline-flex;align-items:center;gap:7px;background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:50px;padding:5px 14px;font-size:10.5px;font-weight:700;color:var(--green);letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Montserrat',sans-serif;font-size:clamp(28px,4.5vw,50px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+h1 .g{color:var(--green)}
+h1 .y{color:var(--yellow)}
+.hero-desc{color:rgba(255,255,255,.55);font-size:15px;line-height:1.75;margin-bottom:30px;max-width:440px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.btn-main{background:var(--green);color:#fff;padding:13px 26px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all .2s;box-shadow:0 8px 24px rgba(39,174,96,.3)}
+.btn-main:hover{background:var(--green2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.2);padding:13px 26px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:13.5px;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.06)}
+.kpis{display:flex;gap:24px;flex-wrap:wrap}
+.kpi-num{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;line-height:1}
+.kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* NETWORK CARD */
+.net-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:40px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;overflow:hidden;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.net-card::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:rgba(39,174,96,.06)}
+.net-card-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.5px;text-transform:uppercase}
+.flag-bar{display:flex;width:100px;height:4px;border-radius:3px;overflow:hidden;margin-top:6px}
+.flag-bar span:nth-child(1){flex:1;background:var(--green)}
+.flag-bar span:nth-child(2){flex:1;background:var(--red)}
+.flag-bar span:nth-child(3){flex:1;background:var(--yellow)}
+.net-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:4px}
+.chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:4px 11px;font-size:10px;color:rgba(255,255,255,.5);font-weight:600}
+.chip.active{background:rgba(39,174,96,.15);border-color:rgba(39,174,96,.3);color:var(--green)}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--border)}
+
+/* SECTION BASE */
+section{padding:88px 5vw}
+.s-inner{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:10.5px;font-weight:700;color:var(--green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+h2{font-family:'Montserrat',sans-serif;font-size:clamp(24px,3.5vw,38px);font-weight:800;letter-spacing:-.5px;margin-bottom:14px;line-height:1.15}
+.desc{color:rgba(255,255,255,.5);font-size:15px;line-height:1.7;max-width:480px}
+
+/* VISION */
+#vision{background:var(--navy-deep)}
+.vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:48px}
+.vision-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px 28px}
+.vision-card-top{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+.vc-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.vc-title{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;margin-bottom:4px}
+.vc-sub{font-size:12px;color:rgba(255,255,255,.45);line-height:1.5}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.stat-big{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:var(--white);line-height:1}
+.stat-s{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.rccm-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:11px}
+.rccm-hdr{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.7px;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.rr{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px}
+.rr-label{color:var(--muted)}
+.rr-value{font-weight:600;color:#fff;text-align:right}
+.rr-badge{background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.2);color:var(--green);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700}
+
+/* FILIALES */
+#filiales{background:rgba(255,255,255,.015)}
+.filiales-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:40px}
+.filiales-filter{display:flex;gap:8px;flex-wrap:wrap}
+.f-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:6px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
+.f-btn:hover,.f-btn.active{background:rgba(39,174,96,.12);border-color:rgba(39,174,96,.3);color:var(--green)}
+.filiales-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.f-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:all .2s;cursor:default;position:relative;overflow:hidden}
+.f-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
+.f-card.launch{border-color:rgba(39,174,96,.3);background:rgba(39,174,96,.06)}
+.f-card.launch::after{content:'EN LIGNE';position:absolute;top:10px;right:10px;background:var(--green);color:#fff;border-radius:5px;padding:2px 7px;font-size:8.5px;font-weight:800;letter-spacing:.3px}
+.f-num{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.3px}
+.f-icon{font-size:26px;margin-bottom:8px;display:block}
+.f-name{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:800;margin-bottom:4px;line-height:1.3}
+.f-rev{font-size:11px;color:var(--green);font-weight:700}
+.f-stage{font-size:10px;color:var(--muted);margin-top:4px}
+.total-row{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:14px;padding:18px 24px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.total-row h4{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800}
+.total-nums{display:flex;gap:28px}
+.tn span{display:block;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:900;color:var(--green)}
+.tn small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+/* MODELE */
+#modele{background:var(--navy-deep)}
+.modele-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.modele-visual{background:linear-gradient(135deg,#1b2a4a,#243660);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.b2b2c{display:flex;flex-direction:column;gap:0}
+.b2b2c-row{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border-radius:12px;padding:14px 16px}
+.b2b2c-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.b2b2c-info h4{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px}
+.b2b2c-info p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.4}
+.arrow-down{text-align:center;font-size:18px;color:rgba(255,255,255,.2);padding:2px 0}
+.avantages{display:flex;flex-direction:column;gap:14px}
+.av{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.av-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.av h4{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px}
+.av p{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* SANTE CONNECT */
+#sante{background:rgba(255,255,255,.015)}
+.sante-inner{background:linear-gradient(135deg,#0a2e22,#0d4a3a);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.sante-inner::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.sante-label{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:5px 14px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px}
+.sante-inner h2{color:#fff;margin-bottom:12px}
+.sante-inner .desc{color:rgba(255,255,255,.55);max-width:100%;margin-bottom:24px}
+.sante-features{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.sf{display:flex;gap:10px;align-items:center;font-size:13px;color:rgba(255,255,255,.8)}
+.sf-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+.btn-sante{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0d4a3a;border-radius:50px;padding:12px 24px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;text-decoration:none;transition:all .2s}
+.btn-sante:hover{background:#e8f5ee;transform:translateY(-1px)}
+.sante-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ss{background:rgba(255,255,255,.08);border-radius:16px;padding:20px;text-align:center}
+.ss-num{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:900;color:#fff}
+.ss-lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+
+/* CONTACT */
+#contact{background:var(--navy-deep)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.c-cards{display:flex;flex-direction:column;gap:14px}
+.c-card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+.c-icon{width:42px;height:42px;border-radius:12px;background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.c-info h4{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.c-info p,.c-info a{font-size:12.5px;color:rgba(255,255,255,.5);text-decoration:none;line-height:1.6}
+.c-info a:hover{color:var(--green)}
+.c-form{display:flex;flex-direction:column;gap:13px}
+.fl{display:flex;flex-direction:column;gap:6px}
+.fl label{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px}
+.fi,.ft{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:12px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:border-color .2s;resize:none}
+.fi:focus,.ft:focus{border-color:rgba(39,174,96,.4);background:rgba(255,255,255,.08)}
+.ft{height:110px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.btn-send{background:var(--green);color:#fff;border:none;padding:13px 26px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 8px 20px rgba(39,174,96,.3)}
+.btn-send:hover{background:var(--green2);transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:var(--navy-deep);border-top:1px solid var(--border);padding:44px 5vw 28px}
+.ft-inner{max-width:1100px;margin:0 auto}
+.ft-top{display:flex;justify-content:space-between;align-items:flex-start;gap:36px;flex-wrap:wrap;margin-bottom:36px}
+.ft-brand p{font-size:11.5px;color:rgba(255,255,255,.35);line-height:1.6;max-width:240px;margin-top:10px}
+.ft-col h5{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ft-col a{font-size:12.5px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.ft-col a:hover{color:#fff}
+.ft-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px;border-top:1px solid var(--border)}
+.ft-copy{font-size:11px;color:rgba(255,255,255,.25)}
+.ft-rccm{font-size:10px;color:rgba(255,255,255,.18);text-align:right}
+
+@media(max-width:860px){
+  .hero-inner,.vision-grid,.modele-grid,.sante-inner,.contact-grid{grid-template-columns:1fr;gap:32px}
+  .net-card{max-width:280px;margin:0 auto}
+  .filiales-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .frow{grid-template-columns:1fr}
+  .ft-top{flex-direction:column;gap:24px}
+  section{padding:60px 5vw}
+}
+@media(max-width:480px){
+  .kpis{flex-direction:column;gap:14px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .sante-stats{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#accueil" class="logo-wrap">
+      <!-- Logo CCS simplifié SVG -->
+      <div class="logo-mark">
+        <svg viewBox="0 0 40 40" width="38" height="38" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="6" r="3.5" fill="#F39C12"/>
+          <circle cx="30" cy="14" r="3" fill="#F39C12"/>
+          <line x1="20" y1="6" x2="30" y2="14" stroke="#F39C12" stroke-width="1.5"/>
+          <circle cx="10" cy="18" r="3" fill="#C0392B"/>
+          <circle cx="20" cy="15" r="3" fill="#C0392B"/>
+          <circle cx="30" cy="22" r="3" fill="#C0392B"/>
+          <line x1="10" y1="18" x2="20" y2="15" stroke="#C0392B" stroke-width="1.5"/>
+          <line x1="20" y1="15" x2="30" y2="22" stroke="#C0392B" stroke-width="1.5"/>
+          <line x1="10" y1="18" x2="30" y2="22" stroke="#C0392B" stroke-width="1" opacity=".5"/>
+          <circle cx="7" cy="29" r="3" fill="#27AE60"/>
+          <circle cx="17" cy="33" r="3" fill="#27AE60"/>
+          <circle cx="27" cy="34" r="3" fill="#27AE60"/>
+          <line x1="7" y1="29" x2="17" y2="33" stroke="#27AE60" stroke-width="1.5"/>
+          <line x1="17" y1="33" x2="27" y2="34" stroke="#27AE60" stroke-width="1.5"/>
+          <line x1="7" y1="29" x2="27" y2="34" stroke="#27AE60" stroke-width="1" opacity=".4"/>
+        </svg>
+      </div>
+      <span class="logo-text">CCS <em>·</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#filiales">25 Filiales</a></li>
+      <li><a href="#modele">Modèle</a></li>
+      <li><a href="#sante">Santé Connect</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://sante.comconnectservice.com" class="nav-btn">🏥 Santé Connect</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-inner">
+    <div>
+      <div class="tag"><span class="tag-dot"></span>Bandjoun · Cameroun · RCCM RC/BJN/2026/A/15</div>
+      <h1>La <span class="g">Holding</span><br><span class="y">Numérique</span><br>Camerounaise</h1>
+      <p class="hero-desc">Cameroun Connect Service digitalise l'économie camerounaise secteur par secteur — 25 filiales, 10 régions, des millions de citoyens connectés à leurs services essentiels.</p>
+      <div class="hero-btns">
+        <a href="#filiales" class="btn-main">Voir les 25 filiales →</a>
+        <a href="#contact" class="btn-ghost">💼 Investisseurs &amp; partenaires</a>
+      </div>
+      <div class="kpis">
+        <div><div class="kpi-num">25</div><div class="kpi-lbl">Filiales prévues</div></div>
+        <div><div class="kpi-num">10</div><div class="kpi-lbl">Régions</div></div>
+        <div><div class="kpi-num">🏥</div><div class="kpi-lbl">Filiale #1 active</div></div>
+        <div><div class="kpi-num">2026</div><div class="kpi-lbl">Fondation</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div class="net-card">
+        <svg viewBox="0 0 240 160" width="220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Réseau multi-couleurs inspiré du logo CCS -->
+          <circle cx="120" cy="18" r="7" fill="#F39C12"/><circle cx="148" cy="32" r="6" fill="#F39C12"/><circle cx="136" cy="22" r="5" fill="#F39C12"/>
+          <line x1="120" y1="18" x2="136" y2="22" stroke="#F39C12" stroke-width="1.8"/><line x1="136" y1="22" x2="148" y2="32" stroke="#F39C12" stroke-width="1.8"/>
+          <circle cx="80" cy="48" r="6" fill="#C0392B"/><circle cx="100" cy="42" r="6" fill="#C0392B"/><circle cx="120" cy="50" r="6" fill="#C0392B"/><circle cx="148" cy="48" r="6" fill="#C0392B"/>
+          <line x1="80" y1="48" x2="100" y2="42" stroke="#C0392B" stroke-width="1.8"/><line x1="100" y1="42" x2="120" y2="50" stroke="#C0392B" stroke-width="1.8"/>
+          <line x1="120" y1="50" x2="148" y2="48" stroke="#C0392B" stroke-width="1.8"/><line x1="80" y1="48" x2="120" y2="50" stroke="#C0392B" stroke-width="1.3" opacity=".5"/>
+          <circle cx="65" cy="72" r="6" fill="#16A085"/><circle cx="88" cy="80" r="6" fill="#16A085"/><circle cx="112" cy="82" r="6" fill="#16A085"/><circle cx="138" cy="76" r="6" fill="#16A085"/>
+          <line x1="65" y1="72" x2="88" y2="80" stroke="#16A085" stroke-width="1.8"/><line x1="88" y1="80" x2="112" y2="82" stroke="#16A085" stroke-width="1.8"/>
+          <line x1="112" y1="82" x2="138" y2="76" stroke="#16A085" stroke-width="1.8"/><line x1="65" y1="72" x2="112" y2="82" stroke="#16A085" stroke-width="1.2" opacity=".4"/>
+          <circle cx="60" cy="100" r="6" fill="#27AE60"/><circle cx="82" cy="108" r="6" fill="#27AE60"/><circle cx="108" cy="110" r="6" fill="#27AE60"/><circle cx="134" cy="104" r="6" fill="#27AE60"/>
+          <line x1="60" y1="100" x2="82" y2="108" stroke="#27AE60" stroke-width="1.8"/><line x1="82" y1="108" x2="108" y2="110" stroke="#27AE60" stroke-width="1.8"/>
+          <line x1="108" y1="110" x2="134" y2="104" stroke="#27AE60" stroke-width="1.8"/><line x1="60" y1="100" x2="108" y2="110" stroke="#27AE60" stroke-width="1.2" opacity=".4"/>
+          <!-- texte CCS -->
+          <text x="160" y="64" font-family="Montserrat,sans-serif" font-weight="900" font-size="28" fill="white" letter-spacing="-1">CCS</text>
+          <text x="159" y="82" font-family="Inter,sans-serif" font-weight="400" font-size="8.5" fill="rgba(255,255,255,0.45)" letter-spacing="0.3">Digital &amp; Network Solutions</text>
+        </svg>
+        <div class="flag-bar"><span></span><span></span><span></span></div>
+        <div class="net-chips">
+          <span class="chip active">🏥 Santé — EN LIGNE</span>
+          <span class="chip">🍽️ Resto</span>
+          <span class="chip">✈️ Transport</span>
+          <span class="chip">🛒 Market</span>
+          <span class="chip">+ 21 filiales</span>
+        </div>
+        <div class="net-card-label">Holding · 25 Filiales · 10 Régions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- VISION & LEGALE -->
+<section id="vision">
+  <div class="s-inner">
+    <div class="eyebrow">Mission &amp; Vision</div>
+    <h2>Construire l'Afrique numérique<br>depuis le Cameroun</h2>
+    <div class="vision-grid">
+      <div>
+        <div class="vision-card" style="margin-bottom:14px">
+          <div class="vision-card-top">
+            <div class="vc-icon" style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2)">🌐</div>
+            <div>
+              <div class="vc-title">Vision</div>
+              <div class="vc-sub">Devenir le leader des solutions numériques en Afrique subsaharienne en digitalisant l'économie camerounaise secteur par secteur.</div>
+            </div>
+          </div>
+        </div>
+        <div class="vision-card" style="margin-bottom:14px">
+          <div class="vision-card-top">
+            <div class="vc-icon" style="background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.2)">🎯</div>
+            <div>
+              <div class="vc-title">Mission</div>
+              <div class="vc-sub">Créer et déployer 25 applications sectorielles connectant professionnels et citoyens dans tous les secteurs des 10 régions du Cameroun.</div>
+            </div>
+          </div>
+        </div>
+        <div class="vision-card">
+          <div class="vision-card-top">
+            <div class="vc-icon" style="background:rgba(22,160,133,.1);border:1px solid rgba(22,160,133,.2)">💡</div>
+            <div>
+              <div class="vc-title">Modèle B2B2C</div>
+              <div class="vc-sub">Les professionnels paient un abonnement mensuel. Les citoyens accèdent gratuitement ou paient de petits frais de service très accessibles.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats-row" style="margin-top:16px">
+          <div class="stat-box"><div class="stat-big">28M+</div><div class="stat-s">Habitants</div></div>
+          <div class="stat-box"><div class="stat-big">70%</div><div class="stat-s">Pop. &lt;35 ans</div></div>
+          <div class="stat-box"><div class="stat-big">18M+</div><div class="stat-s">Mobiles</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="margin-bottom:14px">
+          <div class="eyebrow">Informations légales</div>
+        </div>
+        <div class="rccm-box">
+          <div class="rccm-hdr">Établissements Cameroun Connect Service — Registre du Commerce</div>
+          <div class="rr"><span class="rr-label">Raison sociale</span><span class="rr-value">Ets Cameroun Connect Service</span></div>
+          <div class="rr"><span class="rr-label">Numéro RCCM</span><span class="rr-value"><span class="rr-badge">RC/BJN/2026/A/15</span></span></div>
+          <div class="rr"><span class="rr-label">Date d'immatriculation</span><span class="rr-value">22 mai 2026 — Bandjoun</span></div>
+          <div class="rr"><span class="rr-label">Tribunal</span><span class="rr-value">Greffe du TGI de Bandjoun</span></div>
+          <div class="rr"><span class="rr-label">Activité principale</span><span class="rr-value">Plateforme en ligne · App mobile · Services digitaux · Commerce général</span></div>
+          <div class="rr"><span class="rr-label">Représentant légal</span><span class="rr-value">FEZEU NZALI Benjamin Junior</span></div>
+          <div class="rr"><span class="rr-label">Nationalité</span><span class="rr-value">Camerounaise</span></div>
+          <div class="rr"><span class="rr-label">Siège social</span><span class="rr-value">Bandjoun, Région de l'Ouest</span></div>
+          <div class="rr"><span class="rr-label">Contacts</span><span class="rr-value">+237 692 497 780 · +237 656 225 367</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 25 FILIALES -->
+<section id="filiales">
+  <div class="s-inner">
+    <div class="filiales-header">
+      <div>
+        <div class="eyebrow">Portefeuille</div>
+        <h2>Les 25 Filiales de la Holding</h2>
+        <p class="desc">Chaque filiale est une plateforme dédiée à un secteur d'activité, déployée dans les 10 régions du Cameroun.</p>
+      </div>
+    </div>
+    <div class="filiales-grid">
+      <div class="f-card launch"><span class="f-num">#01</span><span class="f-icon">🏥</span><div class="f-name">Santé Connect Cameroun</div><div class="f-stage">Actif · Produit phare</div></div>
+      <div class="f-card"><span class="f-num">#02</span><span class="f-icon">🍽️</span><div class="f-name">Camer Connect Resto</div><div class="f-stage">En développement</div></div>
+      <div class="f-card"><span class="f-num">#03</span><span class="f-icon">✈️</span><div class="f-name">Camer Connect Transport</div><div class="f-stage">En développement</div></div>
+      <div class="f-card"><span class="f-num">#04</span><span class="f-icon">🛒</span><div class="f-name">Camer Connect Market</div><div class="f-stage">En développement</div></div>
+      <div class="f-card"><span class="f-num">#05</span><span class="f-icon">⚖️</span><div class="f-name">Justice Pour Tous Connect</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#06</span><span class="f-icon">🏨</span><div class="f-name">Camer Connect Hôtel</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#07</span><span class="f-icon">✂️</span><div class="f-name">Camer Connect Couture</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#08</span><span class="f-icon">💄</span><div class="f-name">Camer Connect Beauty</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#09</span><span class="f-icon">🎓</span><div class="f-name">Camer Connect University</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#10</span><span class="f-icon">🌍</span><div class="f-name">Camer Connect Tourisme</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#11</span><span class="f-icon">🌟</span><div class="f-name">African Talent Connect</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#12</span><span class="f-icon">🎨</span><div class="f-name">Camer Connect Culture &amp; Art</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#13</span><span class="f-icon">🔧</span><div class="f-name">Camer Connect Garage</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#14</span><span class="f-icon">🌾</span><div class="f-name">Camer Connect Agriculture</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#15</span><span class="f-icon">🐄</span><div class="f-name">Camer Connect Élevage</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#16</span><span class="f-icon">🏪</span><div class="f-name">Camer Connect Commerce</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#17</span><span class="f-icon">🔌</span><div class="f-name">Camer Connect Dépannage</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#18</span><span class="f-icon">🏗️</span><div class="f-name">Camer Connect Construction</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#19</span><span class="f-icon">🎡</span><div class="f-name">Camer Connect Loisirs</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#20</span><span class="f-icon">🎊</span><div class="f-name">Camer Connect Événementiel</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#21</span><span class="f-icon">🛡️</span><div class="f-name">Camer Connect Security</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#22</span><span class="f-icon">🐾</span><div class="f-name">Camer Connect Fone</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#23</span><span class="f-icon">🏢</span><div class="f-name">Camer Connect Multinationales</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#24</span><span class="f-icon">🛡️</span><div class="f-name">Camer Connect Assurance</div><div class="f-stage">Planifié</div></div>
+      <div class="f-card"><span class="f-num">#25</span><span class="f-icon">🏡</span><div class="f-name">Camer Connect Immobilier</div><div class="f-stage">Planifié</div></div>
+    </div>
+    <div class="total-row">
+      <h4>🇨🇲 Holding CCS — 25 filiales · 10 régions du Cameroun</h4>
+      <div class="total-nums">
+        <div class="tn"><span>25</span><small>Filiales sectorielles</small></div>
+        <div class="tn"><span>10</span><small>Régions ciblées</small></div>
+        <div class="tn"><span>28M+</span><small>Camerounais visés</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- MODÈLE B2B2C -->
+<section id="modele">
+  <div class="s-inner">
+    <div class="modele-grid">
+      <div class="modele-visual">
+        <div class="eyebrow" style="color:rgba(255,255,255,.4)">Modèle économique</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px">B2B2C — Abonnements récurrents</div>
+        <div class="b2b2c">
+          <div class="b2b2c-row">
+            <div class="b2b2c-icon" style="background:rgba(39,174,96,.15)">🏢</div>
+            <div class="b2b2c-info"><h4>Professionnels & Entreprises</h4><p>Paient un abonnement mensuel pour figurer sur la plateforme et accéder aux clients</p></div>
+          </div>
+          <div class="arrow-down">↕</div>
+          <div class="b2b2c-row">
+            <div class="b2b2c-icon" style="background:rgba(22,160,133,.15)">⚙️</div>
+            <div class="b2b2c-info"><h4>CCS — Infrastructure commune</h4><p>Plateforme technique, paiements, IA, marketing partagés entre 25 filiales</p></div>
+          </div>
+          <div class="arrow-down">↕</div>
+          <div class="b2b2c-row">
+            <div class="b2b2c-icon" style="background:rgba(243,156,18,.15)">👥</div>
+            <div class="b2b2c-info"><h4>Citoyens &amp; Consommateurs</h4><p>Accès gratuit ou petits frais de service. 28 millions de Camerounais ciblés</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="avantages">
+        <div class="eyebrow">Avantages compétitifs</div>
+        <h2 style="margin-bottom:24px">Pourquoi CCS va réussir</h2>
+        <div class="av"><div class="av-icon" style="background:rgba(39,174,96,.1)">🚀</div><div><h4>First-mover advantage</h4><p>Aucun concurrent local n'a adressé simultanément 25 secteurs avec une infrastructure commune au Cameroun.</p></div></div>
+        <div class="av"><div class="av-icon" style="background:rgba(22,160,133,.1)">🔗</div><div><h4>Synergies entre filiales</h4><p>Infrastructure tech, data, marketing et paiements partagés = réduction des coûts de 40% vs 25 sociétés indépendantes.</p></div></div>
+        <div class="av"><div class="av-icon" style="background:rgba(243,156,18,.1)">💰</div><div><h4>Revenus récurrents</h4><p>Modèle par abonnement = prévisibilité financière forte. Même Santé Connect génère déjà des revenus stables dès le lancement.</p></div></div>
+        <div class="av"><div class="av-icon" style="background:rgba(192,57,43,.1)">🌍</div><div><h4>Impact sociétal réel</h4><p>Digitalisation de l'économie informelle. 58% de l'économie camerounaise est informelle — c'est notre marché cible principal.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- SANTÉ CONNECT -->
+<section id="sante" style="padding:60px 5vw">
+  <div class="s-inner">
+    <div class="sante-inner">
+      <div style="position:relative;z-index:1">
+        <div class="sante-label">🏥 Filiale #1 — Produit actif</div>
+        <h2 style="font-size:clamp(22px,3.5vw,34px)">Santé Connect Cameroun</h2>
+        <p class="desc" style="margin-bottom:24px">La première plateforme numérique de santé camerounaise. Patients, médecins, pharmacies et structures sanitaires connectés en un seul espace sécurisé.</p>
+        <div class="sante-features">
+          <div class="sf"><span class="sf-dot"></span>Annuaire de médecins vérifiés (KYC biométrique)</div>
+          <div class="sf"><span class="sf-dot"></span>Prise de rendez-vous en ligne</div>
+          <div class="sf"><span class="sf-dot"></span>Assistant IA médical — basé sur protocoles MINSANTÉ</div>
+          <div class="sf"><span class="sf-dot"></span>Suivi cycle menstruel &amp; grossesse (7 CPN officiels)</div>
+          <div class="sf"><span class="sf-dot"></span>Pharmacies de garde · Urgences 24h/24</div>
+          <div class="sf"><span class="sf-dot"></span>Paiement Orange Money &amp; MTN MoMo via CampPay</div>
+          <div class="sf"><span class="sf-dot"></span>Mode hors-ligne optimisé 2G</div>
+        </div>
+        <a href="https://sante.comconnectservice.com" class="btn-sante">Accéder à l'application →</a>
+      </div>
+      <div style="position:relative;z-index:1">
+        <div class="sante-stats">
+          <div class="ss"><div class="ss-num">1 000F</div><div class="ss-lbl">Forfait dès</div></div>
+          <div class="ss"><div class="ss-num">🆓</div><div class="ss-lbl">1 mois d'essai</div></div>
+          <div class="ss"><div class="ss-num">🇨🇲</div><div class="ss-lbl">10 régions</div></div>
+          <div class="ss"><div class="ss-num">24/7</div><div class="ss-lbl">Urgences</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-top:12px">
+          <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px">Vous êtes professionnel de santé ?</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:14px">Médecins, cliniques, pharmacies et assurances — rejoignez l'annuaire des professionnels vérifiés de Santé Connect Cameroun.</p>
+          <a href="#contact" style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:white;border-radius:50px;padding:9px 18px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s">📋 Nous contacter pour rejoindre →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="s-inner">
+    <div style="margin-bottom:44px">
+      <div class="eyebrow">Contact</div>
+      <h2>Investisseurs, partenaires &amp; institutions</h2>
+      <p class="desc">Vous souhaitez investir dans CCS, intégrer une filiale, ou établir un partenariat institutionnel ? Contactez-nous.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="c-cards">
+        <div class="c-card"><div class="c-icon">📍</div><div class="c-info"><h4>Siège social</h4><p>Bandjoun, Région de l'Ouest<br>République du Cameroun</p></div></div>
+        <div class="c-card"><div class="c-icon">📞</div><div class="c-info"><h4>Téléphone</h4><a href="tel:+237692497780">+237 692 497 780</a><br><a href="tel:+237656225367">+237 656 225 367</a></div></div>
+        <div class="c-card"><div class="c-icon">✉️</div><div class="c-info"><h4>Email professionnel</h4><a href="mailto:contact@comconnectservice.com">contact@comconnectservice.com</a></div></div>
+        <div class="c-card"><div class="c-icon">🏥</div><div class="c-info"><h4>Santé Connect Cameroun</h4><a href="https://sante.comconnectservice.com">sante.comconnectservice.com</a></div></div>
+        <div class="c-card"><div class="c-icon">📋</div><div class="c-info"><h4>Dossier investisseurs</h4><p>Plan d'affaires complet disponible sur demande · 25 filiales · Projections 5 ans</p></div></div>
+      </div>
+      <form class="c-form" onsubmit="handleForm(event)">
+        <div class="frow">
+          <div class="fl"><label>Prénom</label><input type="text" class="fi" placeholder="Jean" required></div>
+          <div class="fl"><label>Nom</label><input type="text" class="fi" placeholder="Dupont" required></div>
+        </div>
+        <div class="fl"><label>Email</label><input type="email" class="fi" placeholder="vous@exemple.com" required></div>
+        <div class="fl"><label>Objet</label>
+          <select class="fi" style="appearance:none;cursor:pointer">
+            <option>💼 Demande d'investissement</option>
+            <option>🤝 Proposition de partenariat</option>
+            <option>🏥 Rejoindre Santé Connect</option>
+            <option>🏛️ Partenariat institutionnel</option>
+            <option>📋 Autre demande</option>
+          </select>
+        </div>
+        <div class="fl"><label>Message</label><textarea class="ft" placeholder="Décrivez votre projet ou votre demande..." required></textarea></div>
+        <button type="submit" class="btn-send">Envoyer le message ✉️</button>
+        <p id="fsuccess" style="display:none;color:var(--green);font-size:13px;font-weight:600">✅ Message envoyé ! Nous vous répondrons dans les meilleurs délais.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <svg viewBox="0 0 40 40" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="6" r="3.5" fill="#F39C12"/><circle cx="30" cy="14" r="3" fill="#F39C12"/>
+            <line x1="20" y1="6" x2="30" y2="14" stroke="#F39C12" stroke-width="1.5"/>
+            <circle cx="10" cy="18" r="3" fill="#C0392B"/><circle cx="20" cy="15" r="3" fill="#C0392B"/><circle cx="30" cy="22" r="3" fill="#C0392B"/>
+            <line x1="10" y1="18" x2="20" y2="15" stroke="#C0392B" stroke-width="1.5"/>
+            <line x1="20" y1="15" x2="30" y2="22" stroke="#C0392B" stroke-width="1.5"/>
+            <circle cx="7" cy="29" r="3" fill="#27AE60"/><circle cx="17" cy="33" r="3" fill="#27AE60"/><circle cx="27" cy="34" r="3" fill="#27AE60"/>
+            <line x1="7" y1="29" x2="17" y2="33" stroke="#27AE60" stroke-width="1.5"/>
+            <line x1="17" y1="33" x2="27" y2="34" stroke="#27AE60" stroke-width="1.5"/>
+          </svg>
+          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px">Cameroun Connect Service</span>
+        </div>
+        <p>Holding Numérique Camerounaise<br>Digital & Network Solutions<br>Immatriculée au RCCM de Bandjoun</p>
+        <div class="flag-bar" style="margin-top:12px"><span></span><span></span><span></span></div>
+      </div>
+      <div class="ft-col">
+        <h5>Holding</h5>
+        <ul>
+          <li><a href="#vision">Vision &amp; Mission</a></li>
+          <li><a href="#filiales">Les 25 Filiales</a></li>
+          <li><a href="#modele">Modèle économique</a></li>
+          <li><a href="#contact">Investisseurs</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Produits actifs</h5>
+        <ul>
+          <li><a href="https://sante.comconnectservice.com">🏥 Santé Connect Cameroun</a></li>
+        </ul>
+        <h5 style="margin-top:16px">Légal</h5>
+        <ul>
+          <li><a href="https://sante.comconnectservice.com/cgu">CGU Santé Connect</a></li>
+          <li><a href="https://sante.comconnectservice.com/mentions-legales">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:+237692497780">+237 692 497 780</a></li>
+          <li><a href="tel:+237656225367">+237 656 225 367</a></li>
+          <li><a href="mailto:contact@comconnectservice.com">contact@comconnectservice.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p class="ft-copy">© 2026 Cameroun Connect Service. Tous droits réservés.</p>
+      <p class="ft-rccm">RCCM RC/BJN/2026/A/15 · Bandjoun, Cameroun · FEZEU NZALI Benjamin Junior · Holding Numérique</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleForm(e){
+  e.preventDefault();
+  document.getElementById('fsuccess').style.display='block';
+  e.target.reset();
+  setTimeout(()=>{document.getElementById('fsuccess').style.display='none'},5000);
+}
+// Nav active states
+const secs=document.querySelectorAll('section[id]'),lks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id});
+  lks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'#fff':''});
+});
+</script>
+</body>
+</html>
