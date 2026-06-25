@@ -90,12 +90,26 @@ h2{font-family:'Montserrat',sans-serif;font-size:clamp(24px,3.5vw,38px);font-wei
 .rr-value{font-weight:600;color:#fff;text-align:right}
 .rr-badge{background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.2);color:var(--green);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700}
 #filiales{background:rgba(255,255,255,.015)}
-.filiales-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:40px}
+.filiales-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.lg{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.55);font-weight:600}
+.lg-dot{width:8px;height:8px;border-radius:50%}
+.lg-on{background:var(--green)}
+.lg-prog{background:var(--yellow)}
+.lg-plan{background:var(--muted)}
 .filiales-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.f-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:all .2s;cursor:default;position:relative;overflow:hidden}
+.f-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:all .25s;cursor:default;position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit}
 .f-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
 .f-card.launch{border-color:rgba(39,174,96,.3);background:rgba(39,174,96,.06)}
 .f-card.launch::after{content:'EN LIGNE';position:absolute;top:10px;right:10px;background:var(--green);color:#fff;border-radius:5px;padding:2px 7px;font-size:8.5px;font-weight:800;letter-spacing:.3px}
+.f-card.progress{border-color:rgba(243,156,18,.3);background:rgba(243,156,18,.05)}
+.f-card.progress::after{content:'EN COURS';position:absolute;top:10px;right:10px;background:var(--yellow);color:#1a1205;border-radius:5px;padding:2px 7px;font-size:8.5px;font-weight:800;letter-spacing:.3px}
+a.f-card.launch{cursor:pointer;animation:pulseGlow 2.6s ease-in-out infinite}
+a.f-card.launch:hover{transform:translateY(-5px);border-color:var(--green);background:rgba(39,174,96,.13);box-shadow:0 14px 34px rgba(39,174,96,.35)}
+a.f-card.launch .f-cta{display:inline-flex;align-items:center;gap:5px;margin-top:9px;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.2px}
+a.f-card.launch .f-cta span{transition:transform .25s}
+a.f-card.launch:hover .f-cta span{transform:translateX(5px)}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(39,174,96,.45)}50%{box-shadow:0 0 0 7px rgba(39,174,96,0)}}
 .f-num{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.3px}
 .f-icon{font-size:26px;margin-bottom:8px;display:block}
 .f-name{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:800;margin-bottom:4px;line-height:1.3}
@@ -317,11 +331,16 @@ footer{background:var(--navy-deep);border-top:1px solid var(--border);padding:44
         <p class="desc">Chaque filiale est une plateforme dédiée à un secteur d'activité, déployée dans les 10 régions du Cameroun.</p>
       </div>
     </div>
+    <div class="legend">
+      <span class="lg"><span class="lg-dot lg-on"></span>En ligne · cliquable</span>
+      <span class="lg"><span class="lg-dot lg-prog"></span>En cours de déploiement</span>
+      <span class="lg"><span class="lg-dot lg-plan"></span>Planifié</span>
+    </div>
     <div class="filiales-grid">
-      <div class="f-card launch"><span class="f-num">#01</span><span class="f-icon">🏥</span><div class="f-name">Santé Connect Cameroun</div><div class="f-stage">Actif · Produit phare</div></div>
-      <div class="f-card"><span class="f-num">#02</span><span class="f-icon">🍽️</span><div class="f-name">Camer Connect Resto</div><div class="f-stage">En développement</div></div>
-      <div class="f-card"><span class="f-num">#03</span><span class="f-icon">✈️</span><div class="f-name">Camer Connect Transport</div><div class="f-stage">En développement</div></div>
-      <div class="f-card"><span class="f-num">#04</span><span class="f-icon">🛒</span><div class="f-name">Camer Connect Market</div><div class="f-stage">En développement</div></div>
+      <a href="https://sante.comconnectservice.com" target="_blank" rel="noopener" class="f-card launch"><span class="f-num">#01</span><span class="f-icon">🏥</span><div class="f-name">Santé Connect Cameroun</div><div class="f-stage">Actif · Produit phare</div><div class="f-cta">Ouvrir l'application <span>→</span></div></a>
+      <div class="f-card progress"><span class="f-num">#02</span><span class="f-icon">🍽️</span><div class="f-name">Camer Connect Resto</div><div class="f-stage">En cours de déploiement</div></div>
+      <div class="f-card progress"><span class="f-num">#03</span><span class="f-icon">✈️</span><div class="f-name">Camer Connect Transport</div><div class="f-stage">En cours de déploiement</div></div>
+      <div class="f-card progress"><span class="f-num">#04</span><span class="f-icon">🛒</span><div class="f-name">Camer Connect Market</div><div class="f-stage">En cours de déploiement</div></div>
       <div class="f-card"><span class="f-num">#05</span><span class="f-icon">⚖️</span><div class="f-name">Justice Pour Tous Connect</div><div class="f-stage">Planifié</div></div>
       <div class="f-card"><span class="f-num">#06</span><span class="f-icon">🏨</span><div class="f-name">Camer Connect Hôtel</div><div class="f-stage">Planifié</div></div>
       <div class="f-card"><span class="f-num">#07</span><span class="f-icon">✂️</span><div class="f-name">Camer Connect Couture</div><div class="f-stage">Planifié</div></div>
