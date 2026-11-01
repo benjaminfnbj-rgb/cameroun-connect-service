@@ -45,7 +45,27 @@ test.beforeEach(() => {
   delete process.env.CONTACT_TO;
   delete process.env.CONTACT_FROM;
   delete process.env.CONTACT_SEND_ACK;
+  delete process.env.GMAIL_USER;
+  delete process.env.GMAIL_APP_PASSWORD;
 });
+
+function fakeTransport(result) {
+  const calls = [];
+  return {
+    calls,
+    sendMail: async (m) => {
+      calls.push(m);
+      if (result instanceof Error) throw result;
+      return typeof result === 'function' ? result(m) : result;
+    }
+  };
+}
+
+function useGmail() {
+  delete process.env.RESEND_API_KEY;
+  process.env.GMAIL_USER = 'ccs.contact@gmail.com';
+  process.env.GMAIL_APP_PASSWORD = 'abcd efgh ijkl mnop';
+}
 
 test('envoi réussi : 200 ok, e-mail principal + accusé de réception', async () => {
   const f = fakeFetch([{ status: 200, body: { id: 'a1' } }, { status: 200, body: { id: 'a2' } }]);
@@ -167,4 +187,61 @@ test('objet inconnu ramené à « Autre demande »', async () => {
   const r = res();
   await contact.handler(req(Object.assign(valid(), { subject: 'xxx' })), r, { fetch: f, now: NOW });
   assert.match(f.calls[0].body.subject, /Autre demande/);
+});
+
+test('Gmail : envoi réussi quand RESEND_API_KEY est absente', async () => {
+  useGmail();
+  const t = fakeTransport((m) => ({ accepted: [m.to], rejected: [], response: '250 OK' }));
+  const r = res();
+  await contact.handler(req(valid()), r, { transport: t, now: NOW });
+  assert.strictEqual(r.statusCode, 200);
+  assert.strictEqual(r.json.ok, true);
+  assert.strictEqual(t.calls.length, 2);
+  assert.strictEqual(t.calls[0].from, 'Cameroun Connect Service <ccs.contact@gmail.com>');
+  assert.strictEqual(t.calls[0].to, 'ccs.contact@gmail.com');
+  assert.strictEqual(t.calls[0].replyTo, 'jean@example.com');
+  assert.strictEqual(t.calls[1].to, 'jean@example.com');
+});
+
+test('Gmail : CONTACT_TO respecté', async () => {
+  useGmail();
+  process.env.CONTACT_TO = 'contact@comconnectservice.com';
+  const t = fakeTransport((m) => ({ accepted: [m.to], rejected: [] }));
+  const r = res();
+  await contact.handler(req(valid()), r, { transport: t, now: NOW });
+  assert.strictEqual(t.calls[0].to, 'contact@comconnectservice.com');
+});
+
+test('Gmail : identifiants refusés -> 502, pas de confirmation', async () => {
+  useGmail();
+  const t = fakeTransport(new Error('Invalid login: 535-5.7.8 Username and Password not accepted'));
+  const r = res();
+  await contact.handler(req(valid()), r, { transport: t, now: NOW });
+  assert.strictEqual(r.statusCode, 502);
+  assert.strictEqual(r.json.ok, false);
+});
+
+test('Gmail : destinataire rejeté -> 502', async () => {
+  useGmail();
+  const t = fakeTransport((m) => ({ accepted: [], rejected: [m.to] }));
+  const r = res();
+  await contact.handler(req(valid()), r, { transport: t, now: NOW });
+  assert.strictEqual(r.statusCode, 502);
+});
+
+test('Resend prioritaire si les deux sont configurés', async () => {
+  useGmail();
+  process.env.RESEND_API_KEY = 're_test_key';
+  const f = fakeFetch([{ status: 200, body: { id: 'a1' } }]);
+  const t = fakeTransport({ accepted: ['x'], rejected: [] });
+  const r = res();
+  await contact.handler(req(valid()), r, { fetch: f, transport: t, now: NOW });
+  assert.strictEqual(r.statusCode, 200);
+  assert.ok(f.calls.length >= 1);
+  assert.strictEqual(t.calls.length, 0);
+});
+
+test('Gmail : vrai module nodemailer chargé sans erreur', async () => {
+  const nodemailer = require('nodemailer');
+  assert.strictEqual(typeof nodemailer.createTransport, 'function');
 });

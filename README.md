@@ -19,6 +19,15 @@ Site officiel : https://www.comconnectservice.com (hébergé sur Vercel).
    - `CONTACT_FROM` = l'expéditeur, par ex. `Cameroun Connect Service <contact@comconnectservice.com>` (facultatif)
 5. Redéployer le site.
 
+### Alternative : envoi par Gmail
+
+Si `RESEND_API_KEY` n'est pas définie, le site peut envoyer via Gmail :
+
+1. Sur le compte Google qui enverra les e-mails, activer la validation en 2 étapes.
+2. Créer un mot de passe d'application : https://myaccount.google.com/apppasswords
+3. Dans Vercel, ajouter `GMAIL_USER` (l'adresse Gmail) et `GMAIL_APP_PASSWORD` (les 16 caractères), puis redéployer.
+   Les messages arrivent sur `GMAIL_USER`, ou sur `CONTACT_TO` si elle est définie.
+
 Tant que la clé n'est pas configurée, le formulaire affiche un message d'erreur invitant à écrire directement par e-mail : il n'affiche jamais « message envoyé » si l'e-mail n'est pas réellement parti.
 
 ## Tester avant de déployer

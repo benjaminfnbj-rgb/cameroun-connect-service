@@ -2,14 +2,19 @@
 
 /**
  * POST /api/contact
- * Reçoit le formulaire de contact et l'envoie par e-mail via l'API Resend.
- * Ne répond { ok: true } que si Resend a accepté l'e-mail.
+ * Reçoit le formulaire de contact et l'envoie par e-mail, via Resend ou via Gmail.
+ * Ne répond { ok: true } que si le service d'envoi a accepté l'e-mail.
  *
- * Variables d'environnement (à définir dans Vercel > Settings > Environment Variables) :
- *   RESEND_API_KEY  (obligatoire)  clé API Resend
- *   CONTACT_TO      (facultatif)   destinataire, par défaut contact@comconnectservice.com
- *   CONTACT_FROM    (facultatif)   expéditeur vérifié, par défaut "Cameroun Connect Service <contact@comconnectservice.com>"
- *   CONTACT_SEND_ACK (facultatif)  "false" pour désactiver l'accusé de réception au visiteur
+ * Variables d'environnement (Vercel > Settings > Environment Variables) — l'une des deux options :
+ *   Option A, Resend :
+ *     RESEND_API_KEY      clé API Resend (domaine comconnectservice.com vérifié dans Resend)
+ *     CONTACT_FROM        (facultatif) expéditeur, par défaut "Cameroun Connect Service <contact@comconnectservice.com>"
+ *   Option B, Gmail (utilisée si RESEND_API_KEY est absente) :
+ *     GMAIL_USER          adresse Gmail qui envoie les e-mails
+ *     GMAIL_APP_PASSWORD  mot de passe d'application Google (16 caractères, validation en 2 étapes requise)
+ *   Communes :
+ *     CONTACT_TO          (facultatif) destinataire ; par défaut contact@comconnectservice.com (Resend) ou GMAIL_USER (Gmail)
+ *     CONTACT_SEND_ACK    (facultatif) "false" pour désactiver l'accusé de réception au visiteur
  */
 
 const RESEND_URL = 'https://api.resend.com/emails';
@@ -95,7 +100,7 @@ function send(res, code, payload) {
   res.end(JSON.stringify(payload));
 }
 
-async function sendEmail(apiKey, payload, fetchImpl) {
+async function sendResend(apiKey, payload, fetchImpl) {
   const r = await fetchImpl(RESEND_URL, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
@@ -106,8 +111,51 @@ async function sendEmail(apiKey, payload, fetchImpl) {
   return { ok: r.ok && !!body.id, status: r.status, body };
 }
 
+function gmailTransport(user, pass) {
+  const nodemailer = require('nodemailer');
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: { user, pass },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000
+  });
+}
+
+// Choisit le service d'envoi configuré. Retourne null si aucun n'est configuré.
+function getMailer(deps) {
+  const env = process.env;
+  if (env.RESEND_API_KEY) {
+    const fetchImpl = (deps && deps.fetch) || globalThis.fetch;
+    return {
+      name: 'resend',
+      from: env.CONTACT_FROM || DEFAULT_FROM,
+      to: env.CONTACT_TO || DEFAULT_TO,
+      send: (m) => sendResend(env.RESEND_API_KEY, m, fetchImpl)
+    };
+  }
+  if (env.GMAIL_USER && env.GMAIL_APP_PASSWORD) {
+    const transport = (deps && deps.transport) || gmailTransport(env.GMAIL_USER, env.GMAIL_APP_PASSWORD.replace(/\s+/g, ''));
+    return {
+      name: 'gmail',
+      from: 'Cameroun Connect Service <' + env.GMAIL_USER + '>',
+      to: env.CONTACT_TO || env.GMAIL_USER,
+      send: async (m) => {
+        const info = await transport.sendMail({
+          from: m.from, to: m.to.join(', '), replyTo: m.reply_to, subject: m.subject, html: m.html, text: m.text
+        });
+        const accepted = (info && info.accepted) || [];
+        const rejected = (info && info.rejected) || [];
+        return { ok: accepted.length > 0 && rejected.length === 0, status: accepted.length ? 250 : 550, body: { response: info && info.response } };
+      }
+    };
+  }
+  return null;
+}
+
 async function handler(req, res, deps) {
-  const fetchImpl = (deps && deps.fetch) || globalThis.fetch;
   const now = (deps && deps.now) || Date.now();
 
   if (req.method !== 'POST') {
@@ -144,13 +192,13 @@ async function handler(req, res, deps) {
   if (b.consent !== true) errors.push('consent');
   if (errors.length) return send(res, 422, { ok: false, error: 'validation', fields: errors });
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('[contact] RESEND_API_KEY manquante : aucun e-mail envoyé');
+  const mailer = getMailer(deps);
+  if (!mailer) {
+    console.error("[contact] aucun service d'envoi configuré (RESEND_API_KEY ou GMAIL_USER + GMAIL_APP_PASSWORD) : aucun e-mail envoyé");
     return send(res, 503, { ok: false, error: 'not_configured' });
   }
-  const to = process.env.CONTACT_TO || DEFAULT_TO;
-  const from = process.env.CONTACT_FROM || DEFAULT_FROM;
+  const to = mailer.to;
+  const from = mailer.from;
   const subjectLabel = SUBJECTS[subjectKey].fr;
   const fullName = firstName + ' ' + lastName;
 
@@ -168,20 +216,20 @@ async function handler(req, res, deps) {
 
   let main;
   try {
-    main = await sendEmail(apiKey, {
+    main = await mailer.send({
       from,
       to: [to],
       reply_to: email,
       subject: '[Site CCS] ' + subjectLabel + ' — ' + fullName,
       html,
       text
-    }, fetchImpl);
+    });
   } catch (e) {
-    console.error('[contact] erreur réseau Resend', e && e.message);
+    console.error('[contact] erreur d\'envoi (' + mailer.name + ')', e && e.message);
     return send(res, 502, { ok: false, error: 'send_failed' });
   }
   if (!main.ok) {
-    console.error('[contact] Resend a refusé l\'envoi', main.status, JSON.stringify(main.body));
+    console.error('[contact] envoi refusé (' + mailer.name + ')', main.status, JSON.stringify(main.body));
     return send(res, 502, { ok: false, error: 'send_failed' });
   }
 
@@ -197,7 +245,7 @@ async function handler(req, res, deps) {
           text: 'Bonjour ' + firstName + ',\n\nMerci d\'avoir contacté Cameroun Connect Service. Nous avons bien reçu votre message concernant « ' + SUBJECTS[subjectKey].fr + ' » et vous répondrons dans les meilleurs délais.\n\nCeci est un message automatique, merci de ne pas y répondre.\n\nCameroun Connect Service\nhttps://www.comconnectservice.com'
         };
     try {
-      const r = await sendEmail(apiKey, { from, to: [email], subject: ack.subject, text: ack.text }, fetchImpl);
+      const r = await mailer.send({ from, to: [email], subject: ack.subject, text: ack.text });
       if (!r.ok) console.warn('[contact] accusé de réception non envoyé', r.status);
     } catch (e) {
       console.warn('[contact] accusé de réception non envoyé', e && e.message);
