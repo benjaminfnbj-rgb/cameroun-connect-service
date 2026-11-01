@@ -1,0 +1,12 @@
+{
+  "name": "cameroun-connect-service",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site vitrine de Cameroun Connect Service",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "nodemailer": "10.3.1"
+  }
+}
