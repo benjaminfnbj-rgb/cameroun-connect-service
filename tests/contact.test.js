@@ -22,7 +22,7 @@ function res() {
 
 const NOW = 1_800_000_000_000;
 const valid = () => ({
-  firstName: 'Jean', lastName: 'Dupont', email: 'jean@example.com', subject: 'partenariat',
+  firstName: 'Jeanne', lastName: 'Mbarga', email: 'jeanne.mbarga@example.cm', subject: 'partenariat',
   message: 'Bonjour, je souhaite discuter d\'un partenariat.', consent: true, lang: 'fr',
   started: String(NOW - 20000), website: ''
 });
@@ -75,10 +75,10 @@ test('envoi réussi : 200 ok, e-mail principal + accusé de réception', async (
   assert.deepStrictEqual(r.json, { ok: true });
   assert.strictEqual(f.calls.length, 2);
   assert.deepStrictEqual(f.calls[0].body.to, ['contact@comconnectservice.com']);
-  assert.strictEqual(f.calls[0].body.reply_to, 'jean@example.com');
+  assert.strictEqual(f.calls[0].body.reply_to, 'jeanne.mbarga@example.cm');
   assert.match(f.calls[0].body.subject, /Proposition de partenariat/);
   assert.strictEqual(f.calls[0].headers.Authorization, 'Bearer re_test_key');
-  assert.deepStrictEqual(f.calls[1].body.to, ['jean@example.com']);
+  assert.deepStrictEqual(f.calls[1].body.to, ['jeanne.mbarga@example.cm']);
   assert.match(f.calls[1].body.subject, /bien reçu/);
 });
 
@@ -173,7 +173,7 @@ test('le contenu HTML du visiteur est échappé et les en-têtes ne peuvent pas 
   const f = fakeFetch([{ status: 200, body: { id: 'a1' } }]);
   const r = res();
   await contact.handler(req(Object.assign(valid(), {
-    firstName: 'Jean\r\nBcc: victime@example.com', message: '<script>alert(1)</script> bonjour à tous'
+    firstName: 'Jeanne\r\nBcc: victime@example.com', message: '<script>alert(1)</script> bonjour à tous'
   })), r, { fetch: f, now: NOW });
   assert.strictEqual(r.statusCode, 200);
   const sent = f.calls[0].body;
@@ -199,8 +199,8 @@ test('Gmail : envoi réussi quand RESEND_API_KEY est absente', async () => {
   assert.strictEqual(t.calls.length, 2);
   assert.strictEqual(t.calls[0].from, 'Cameroun Connect Service <ccs.contact@gmail.com>');
   assert.strictEqual(t.calls[0].to, 'ccs.contact@gmail.com');
-  assert.strictEqual(t.calls[0].replyTo, 'jean@example.com');
-  assert.strictEqual(t.calls[1].to, 'jean@example.com');
+  assert.strictEqual(t.calls[0].replyTo, 'jeanne.mbarga@example.cm');
+  assert.strictEqual(t.calls[1].to, 'jeanne.mbarga@example.cm');
 });
 
 test('Gmail : CONTACT_TO respecté', async () => {
