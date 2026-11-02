@@ -22,7 +22,7 @@ function res() {
 
 const NOW = 1_800_000_000_000;
 const valid = () => ({
-  firstName: 'Jean', lastName: 'Dupont', email: 'jean@example.com', subject: 'partenariat',
+  firstName: 'Jeanne', lastName: 'Mbarga', email: 'jeanne.mbarga@example.cm', subject: 'partenariat',
   message: 'Bonjour, je souhaite discuter d\'un partenariat.', consent: true, lang: 'fr',
   started: String(NOW - 20000), website: ''
 });
@@ -173,7 +173,7 @@ test('le contenu HTML du visiteur est échappé et les en-têtes ne peuvent pas 
   const f = fakeFetch([{ status: 200, body: { id: 'a1' } }]);
   const r = res();
   await contact.handler(req(Object.assign(valid(), {
-    firstName: 'Jean\r\nBcc: victime@example.com', message: '<script>alert(1)</script> bonjour à tous'
+    firstName: 'Jeanne\r\nBcc: victime@example.com', message: '<script>alert(1)</script> bonjour à tous'
   })), r, { fetch: f, now: NOW });
   assert.strictEqual(r.statusCode, 200);
   const sent = f.calls[0].body;
