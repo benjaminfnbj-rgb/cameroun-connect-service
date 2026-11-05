@@ -217,8 +217,15 @@ footer{background:var(--navy-deep);border-top:1px solid var(--border);padding:44
 .legal .back:hover{color:#fff}
 html[lang="en"] .f-card.launch::after{content:'LIVE'}
 html[lang="en"] .f-card.progress::after{content:'IN PROGRESS'}
-/* Logo Santé Connect Cameroun (remplace l'emoji 🏥) */
+/* Logo Santé Connect Cameroun (remplace l'ancien emoji) */
 .scc-logo{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;border-radius:15%}
 .f-logo{display:block;width:56px;height:56px;margin-bottom:10px;border-radius:15%;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .c-icon-logo{background:none;border:none;padding:0;overflow:hidden}
 .c-icon-logo img{width:42px;height:42px;display:block;border-radius:12px}
+/* Icônes SVG (Lucide, libres) à la place des emoji — règle du 05/11/2026 */
+.ico{width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0}
+.vc-icon,.b2b2c-icon,.av-icon,.c-icon{color:var(--green)}
+.f-icon{color:var(--yellow)}
+.sante-card .si{color:var(--green)}
+.chip .ico,.btn-ghost .ico,.btn-send .ico{margin-right:.35em}
+.btn-send .ico{margin:0 0 0 .35em}
